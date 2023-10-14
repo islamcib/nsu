@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- (Ваши стили и другие мета-теги остаются неизменными) -->
+    <!-- П22-1 -->
+</head>
+<style>
+    body {
+        background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(79, 26, 139, 0.8) 100%), url('../img/3540174.jpg') center/cover no-repeat;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 600px;
+        border-radius: 10px;
+        padding: 10px;  
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    p {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .course-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .course-button {
+        background-color: #ff4d4d;
+        color: #fff;
+        padding: 8px 16px;
+        margin: 10px 0;
+        font-size: 16px;
+        border: 2px solid #ff4d4d;
+        border-radius: 10px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+    
+    .course-button:hover {
+        background-color: #ffaf40;
+        color: #000;
+        border-color: #ffaf40;
+    }
+    
+    /* Стили для таблицы */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px; /* Добавьте верхний отступ для таблиц */
+        font-size: 11px;
+    }
+    
+    /* Стили для ячеек */
+    td, th {
+        border: 1px solid #00a2ff; /* Границы ячеек */
+        padding: 8px;
+        text-align: left;
+    }
+    
+    /* Стили для заголовков таблицы */
+    th {
+        background-color: #ff4d4d; /* Цвет фона заголовков */
+        color: #fff;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Расписание уроков</h1>
+        <p>П22-1</p>
+        <div class="course-buttons">
+            <button id="showAllSchedule" class="course-button">Показать все расписание</button>
+            <button id="backButton" class="course-button" style="display: none;">Назад</button>
+        </div>
+        <table id="scheduleTable" style="display: none;"></table>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const scheduleTable = document.getElementById("scheduleTable");
+            const showAllScheduleButton = document.getElementById("showAllSchedule");
+            const backButton = document.getElementById("backButton");
+             // Определите расписание для каждого дня недели и преподавателей
+             const schedules = [
+             [], // Воскресенье
+             ["Программирование 1-группа (Преподаватель: Бекежанов М.М)", "Основы предпринимательства/ Кыргыз тил жана адабият (Преподаватель: Бабаева Н.М/ Турдубек кызы М.)", "КПВ 3 Элек. и схемо. 1-группа/ КПВ 4 JavaScript 2-группа (Преподаватель: Асан уулу А./ Мирланов Н.)", "КПВ 8 Программирование 2-группа (Преподаватель: Бекежанов М.М)"], // Понедельник
+             // Добавьте информацию о преподавателях для остальных дней недели
+             [" ", "Информатика 1-группа/ Информатика 2-группа (Преподаватель: Канатбеков К./ Болотбек уулу А.)", "Русский язык и литература (Преподаватель: Арыпбекова Д.Дж.)", "Профессиональная математика (Преподаватель: Эшенкулова А.)"], // Вторник
+             [" ", "Кыргыз тил жана адабият (Преподаватель: Турдубек кызы М.)", "КПВ 3 Элек. и схемо. 2-группа/ КПВ 4 JavaScript 1-группа (Преподаватель: Асан уулу А./ Мирланов Н.)", "Компьютерный английский язык (Преподаватель: Осмонова Б.М)"], // Среда
+             ["КПВ 4 Язык программирования JavaScript (Преподаватель: Ажыбаев Д.М)", "КПВ 3 Электротехника и схемотехника (Преподаватель: асан уулу А.)", "Основы предпринимательства/ Информатика (Преподаватель: Бабаева Н.М/ Канатбеков К.)", "Основы алгоритмизаций и программирования (Преподаватель: Бейшеналиева У.У)"], // Четверг
+             ["КПВ 8 Программирование (Преподаватель: Бекежанов М.М)", "Основы алгоритмизации и программирование (Преподаватель: Бейшеналиева У.У)", "Физ.культура (Преподаватель: Акылбеков Ч.)", "(Кураторский час Преподаватель: Турсуналиева М.)"], // Пятница
+             []  // Суббота
+         ];
+        
+            // Определите расписание для каждого дня недели и преподавателей (как в предыдущем коде)
+        
+            showAllScheduleButton.addEventListener("click", function() {
+                const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+                let scheduleText = "<tr><th>День недели</th><th>8:00</th><th>9:30</th><th>11:00</th><th>12:30</th></tr>";
+        
+                for (let i = 1; i < schedules.length; i++) {
+                    const day = daysOfWeek[i];
+                    const classes = schedules[i];
+                    if (classes.length > 0) {
+                        scheduleText += `<tr><td>${day}</td>`;
+                        for (let j = 0; j < classes.length; j++) {
+                            scheduleText += `<td>${classes[j]}</td>`;
+                        }
+                        scheduleText += "</tr>";
+                    }
+                }
+        
+                scheduleTable.innerHTML = scheduleText;
+                scheduleTable.style.display = "table";
+        
+                // Показываем кнопку "Назад" и скрываем "Показать все расписания"
+                backButton.style.display = "inline";
+                showAllScheduleButton.style.display = "none";
+            });
+        
+            backButton.addEventListener("click", function() {
+                scheduleTable.style.display = "none";
+                backButton.style.display = "none";
+                showAllScheduleButton.style.display = "inline";
+            });
+        });
+    </script>
+</body>
+</html>

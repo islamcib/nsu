@@ -1,0 +1,53 @@
+/* Общие стили для всех размеров экранов */
+body {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(79, 26, 139, 0.8) 100%), url('../img/3540174.jpg') center/cover no-repeat;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.course-buttons {
+    display: flex;
+    flex-direction: column; /* Элементы располагаются в столбце */
+    align-items: center; /* Выравнивание по центру по горизонтали */
+}
+
+.course-button {
+    background-color: #ff4d4d; /* Яркий цвет фона */
+    color: #fff; /* Белый текст */
+    padding: 8px 16px;
+    margin: 10px 0; /* Убрать боковые отступы и добавить верхний и нижний отступ */
+    font-size: 16px;
+    border: 2px solid #ff4d4d; /* Яркий цвет контура */
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Плавные переходы при наведении */
+}
+
+.course-button:hover {
+    background-color: #ffaf40; /* Измененный цвет фона при наведении */
+    color: #000; /* Измененный цвет текста при наведении */
+    border-color: #ffaf40; /* Измененный цвет контура при наведении */
+}
